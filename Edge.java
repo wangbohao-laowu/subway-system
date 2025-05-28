@@ -1,17 +1,33 @@
+/**
+ * 表示两个站点之间的连接边，包含目标站点、距离和所属线路
+ */
 public class Edge {
-    private final Station target;
-    private final int distance;
+    private final String to;        // 目标站点名称
+    private final double distance;  // 到目标站点的距离（单位：公里）
+    private final String line;      // 所属线路名称
 
-    public Edge(Station target, int distance) {
-        this.target = target;
+    public Edge(String to, double distance, String line) {
+        this.to = to;
         this.distance = distance;
+        this.line = line;
     }
 
-    public Station getTarget() {
-        return target;
+    // ------------ Getters ------------
+    public String getTo() {
+        return to;
     }
 
-    public int getDistance() {
+    public double getDistance() {
         return distance;
+    }
+
+    public String getLine() {
+        return line;
+    }
+
+    // ------------ 辅助方法 ------------
+    @Override
+    public String toString() {
+        return String.format("[%s] %s (%.3f km)", line, to, distance);
     }
 }
