@@ -1,24 +1,38 @@
-class Line {
-    private String name;
-    private List<String> stations = new ArrayList<>();
-    private List<Double> distances = new ArrayList<>();
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
-    public Line(String name) { this.name = name; }
+public class Line {
+    private String name = "";
+    private final List<String> stations = new ArrayList<>();
+    private final List<Double> distances = new ArrayList<>();
 
-    public void addSegment(String from, String to, double distance) {
-        if (stations.isEmpty()) {
-            stations.add(from);
-            stations.add(to);
-            distances.add(distance);
-        } else if (stations.get(stations.size() - 1).equals(from)) {
-            stations.add(to);
-            distances.add(distance);
-        } else {
-            throw new IllegalArgumentException("线路数据不连续");
+
+    public Line(String name) {
+		this.name=name;
+	}
+
+	public void addStationPair(String stationA,String stationB,double distance) {
+        if(stations.isEmpty()) {
+    	stations.add(stationA);
+    	stations.add(stationB);
+        }else {
+        	stations.add(stationB);
         }
+        distances.add(distance);
+    }
+    
+    public String getName() {
+        return this.name;
     }
 
-    public List<String> getStations() { return stations; }
-    public List<Double> getDistances() { return distances; }
-    public String getName() { return name; }
+    public List<String> getStations() {
+        return Collections.unmodifiableList(this.stations);
+    }
+    public List<Double> getDistances() {
+        return Collections.unmodifiableList(this.distances);
+    }
+    public double getTotalDistance() {
+    	return this.distances.stream().mapToDouble(Double::doubleValue).sum();
+    }
 }
