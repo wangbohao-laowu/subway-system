@@ -1,7 +1,6 @@
 import java.util.*;
-import java.io.*;
 
-class Station {
+public class Station {
     private String name;
     private Set<String> lines = new HashSet<>();
 
